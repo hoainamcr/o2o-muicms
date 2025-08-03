@@ -48,3 +48,9 @@ export const LANGUAGE = {
   VI: "vi",
   EN: "en",
 } as const;
+
+export const DATE_TIME_FORMAT = {
+  DATE: "DD/MM/YYYY",
+  DATE_TIME: "DD/MM/YYYY HH:mm",
+  TIME: "HH:mm",
+} as const;
