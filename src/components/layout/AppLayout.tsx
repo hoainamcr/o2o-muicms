@@ -2,12 +2,13 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { ProLayout } from "@ant-design/pro-components";
 import { useAuthStore } from "@/stores/auth.store";
-import { menuItems } from "@/config/menu";
 import { Dropdown } from "antd";
 import { LogoutOutlined } from "@ant-design/icons";
+import useGetMenus from "@/hooks/useGetMenus";
 
 const AppLayout: React.FC = () => {
   const { user, logout } = useAuthStore();
+  const menus = useGetMenus();
 
   const handleLogout = async () => {
     try {
@@ -19,15 +20,19 @@ const AppLayout: React.FC = () => {
 
   return (
     <ProLayout
+      fixSiderbar={true}
+      layout="mix"
       title="O2O System Management"
       logo="/vite.svg"
       menu={{
-        request: async () => menuItems,
+        request: async () => {
+          return menus;
+        },
       }}
       avatarProps={{
         src:
           user?.avatar ||
-          "https://gw.alipayobjects.com/zos/antfincdn/efFD%24IOql2/weixintupian_20170331104822.jpg",
+          `https://avatar.iran.liara.run/public/boy?username=${user?.last_name}`,
         title: user?.last_name,
         size: "small",
         render: (_, dom) => {
@@ -49,10 +54,6 @@ const AppLayout: React.FC = () => {
           );
         },
       }}
-      actionsRender={(props) => {
-        if (props.isMobile) return [];
-        return [<div key="user-info">{user?.fullName}</div>];
-      }}
       menuFooterRender={(props) => {
         if (props?.collapsed) return undefined;
         return (
@@ -67,9 +68,6 @@ const AppLayout: React.FC = () => {
           </div>
         );
       }}
-      onMenuHeaderClick={(e) => console.log(e)}
-      fixSiderbar={true}
-      layout="mix"
     >
       <Outlet />
     </ProLayout>

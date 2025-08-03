@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  createBrowserRouter,
-  Navigate,
-  RouterProvider,
-} from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ConfigProvider } from "antd";
-import viVN from "antd/locale/vi_VN";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 
 // Layouts
 import AppLayout from "@/components/layout/AppLayout";
@@ -17,21 +10,19 @@ import Dashboard from "@/pages/Dashboard";
 
 // Components
 import ErrorBoundary from "@/components/common/ErrorBoundary";
-import Loading from "@/components/common/Loading";
 
 // Guards
 import AuthGuard from "@/guards/AuthGuard";
 import GuestGuard from "@/guards/GuestGuard";
-
-// Create a client
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+import Users from "@/pages/Users";
+import Settings from "@/pages/Settings";
+import ErrorPage from "@/pages/Errors";
+import { AppRouteMenuItem } from "@/types";
+import {
+  DashboardOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 // Error boundary wrapper for router
 const RouterErrorBoundary: React.FC = () => {
@@ -42,9 +33,11 @@ const RouterErrorBoundary: React.FC = () => {
   );
 };
 
-const router = createBrowserRouter([
+export const routeMenuItem: AppRouteMenuItem[] = [
   {
     path: "/login",
+    name: "Login",
+    hideInMenu: true,
     element: (
       <GuestGuard>
         <Login />
@@ -58,6 +51,7 @@ const router = createBrowserRouter([
         <AppLayout />
       </AuthGuard>
     ),
+    hideInMenu: true,
     errorElement: <RouterErrorBoundary />,
     children: [
       {
@@ -66,36 +60,39 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard",
+        name: "Dashboard",
         element: <Dashboard />,
+        icon: <DashboardOutlined />,
       },
       {
         path: "users",
-        element: <div>Users Page</div>,
+        name: "Users",
+        icon: <UserOutlined />,
+        children: [
+          {
+            index: true,
+            element: <Navigate to="/users/list" replace />,
+          },
+          {
+            path: "list",
+            name: "Users List",
+            element: <Users />,
+          },
+        ],
       },
       {
         path: "settings",
-        element: <div>Settings Page</div>,
+        name: "Settings",
+        element: <Settings />,
+        icon: <SettingOutlined />,
       },
       {
         path: "*",
-        element: <div>404 Not Found</div>,
+        element: <ErrorPage />,
+        hideInMenu: true,
       },
     ],
   },
-]);
+];
 
-const AppRouter: React.FC = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ConfigProvider locale={viVN}>
-        <ErrorBoundary>
-          <Loading spinning={false}>
-            <RouterProvider router={router} />
-          </Loading>
-        </ErrorBoundary>
-      </ConfigProvider>
-    </QueryClientProvider>
-  );
-};
-
-export default AppRouter;
+export default createBrowserRouter(routeMenuItem);
