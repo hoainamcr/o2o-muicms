@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { ProLayout } from "@ant-design/pro-components";
 import { useAuthStore } from "@/stores/auth.store";
 import { Dropdown } from "antd";
@@ -9,6 +9,8 @@ import useGetMenus from "@/hooks/useGetMenus";
 const AppLayout: React.FC = () => {
   const { user, logout } = useAuthStore();
   const menus = useGetMenus();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = async () => {
     try {
@@ -29,6 +31,21 @@ const AppLayout: React.FC = () => {
           return menus;
         },
       }}
+      location={{
+        pathname: location.pathname,
+      }}
+      onMenuHeaderClick={() => navigate("/")}
+      menuItemRender={(item, dom) => (
+        <div
+          onClick={() => {
+            if (item.path) {
+              navigate(item.path);
+            }
+          }}
+        >
+          {dom}
+        </div>
+      )}
       avatarProps={{
         src:
           user?.avatar ||
