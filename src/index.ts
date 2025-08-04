@@ -8,8 +8,8 @@ export * from "./constants";
 export * from "./utils";
 
 // Services
-export { apiService } from "./services/api";
-export { authService } from "./services/auth.service";
+export { apiService } from "./config/api";
+export { authService } from "./services/authService/auth.service";
 
 // Stores
 export { useAuthStore } from "./stores/auth.store";
@@ -28,4 +28,3 @@ export { default as AuthGuard } from "./guards/AuthGuard";
 export { default as GuestGuard } from "./guards/GuestGuard";
 
 // Config
-export { menuItems } from "./config/menu";

@@ -23,6 +23,7 @@ import {
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
+import masterDataRoute from "@/pages/MasterData/route";
 
 // Error boundary wrapper for router
 const RouterErrorBoundary: React.FC = () => {
@@ -64,6 +65,7 @@ export const routeMenuItem: AppRouteMenuItem[] = [
         element: <Dashboard />,
         icon: <DashboardOutlined />,
       },
+      masterDataRoute,
       {
         path: "users",
         name: "Users",

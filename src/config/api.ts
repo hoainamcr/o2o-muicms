@@ -2,7 +2,7 @@ import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
 import { message } from "antd";
 import { API_BASE_URL } from "@/constants";
 import { auth } from "@/utils";
-import { ApiResponse, ApiError } from "@/types";
+import { ApiResponse } from "@/types";
 
 // Create axios instance
 const api: AxiosInstance = axios.create({

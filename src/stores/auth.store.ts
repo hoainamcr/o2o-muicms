@@ -1,7 +1,8 @@
 import { create } from "zustand";
 import { devtools, persist } from "zustand/middleware";
 import { AuthState, User, LoginCredentials } from "@/types";
-import { authService, LoginResponse } from "@/services/auth.service";
+import { authService } from "@/services/authService/auth.service";
+import { LoginResponse } from "@/services/authService/auth.interface";
 import { auth as authUtils } from "@/utils";
 import { message } from "antd";
 
@@ -16,15 +17,18 @@ interface AuthStore extends AuthState {
   clearAuth: () => void;
 }
 
+const initialState: AuthState = {
+  user: null,
+  token: null,
+  isAuthenticated: false,
+  isLoading: false,
+};
+
 export const useAuthStore = create<AuthStore>()(
   devtools(
     persist(
       (set, get) => ({
-        // Initial state
-        user: null,
-        token: null,
-        isAuthenticated: false,
-        isLoading: false,
+        ...initialState,
 
         // Actions
         login: async (credentials: LoginCredentials) => {
@@ -34,8 +38,6 @@ export const useAuthStore = create<AuthStore>()(
             const response: LoginResponse = await authService.login(
               credentials
             );
-
-            console.log("response", response);
 
             // Save to localStorage
             authUtils.setToken(response.token);
@@ -67,12 +69,7 @@ export const useAuthStore = create<AuthStore>()(
             authUtils.logout();
 
             // Update store
-            set({
-              user: null,
-              token: null,
-              isAuthenticated: false,
-              isLoading: false,
-            });
+            set(initialState);
 
             message.success("Đăng xuất thành công!");
           } catch (error) {
@@ -145,12 +142,7 @@ export const useAuthStore = create<AuthStore>()(
 
         clearAuth: () => {
           authUtils.logout();
-          set({
-            user: null,
-            token: null,
-            isAuthenticated: false,
-            isLoading: false,
-          });
+          set(initialState);
         },
       }),
       {

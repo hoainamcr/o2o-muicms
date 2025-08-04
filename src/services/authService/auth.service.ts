@@ -1,17 +1,6 @@
-import { apiService } from "./api";
-import { LoginCredentials, User, AuthState } from "@/types";
-
-export interface LoginResponse {
-  user: User;
-  token: string;
-}
-
-export interface RegisterData {
-  username: string;
-  email: string;
-  password: string;
-  fullName: string;
-}
+import { apiService } from "../../config";
+import { LoginCredentials, User } from "@/types";
+import { LoginResponse, RegisterData } from "./auth.interface";
 
 class AuthService {
   // Login
