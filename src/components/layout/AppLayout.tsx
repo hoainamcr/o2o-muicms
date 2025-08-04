@@ -25,7 +25,7 @@ const AppLayout: React.FC = () => {
       fixSiderbar={true}
       layout="mix"
       title="O2O System Management"
-      logo="/vite.svg"
+      logo="/logo.png"
       menu={{
         request: async () => {
           return menus;
