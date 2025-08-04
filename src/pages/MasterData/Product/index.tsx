@@ -39,9 +39,12 @@ const columns: TableProps<Product>["columns"] = [
 
 const App: React.FC = () => {
   const page = 1;
-  const pageSize = 20;
+  const size = 20;
 
-  const { data, isLoading } = useGetProducts(page, pageSize);
+  const { data, isLoading } = useGetProducts({
+    page,
+    size,
+  });
   return (
     <Table<Product>
       rowKey={(record) => record.product_id.toString()}
@@ -50,7 +53,7 @@ const App: React.FC = () => {
       dataSource={data?.records}
       pagination={{
         total: data?.count,
-        pageSize: pageSize,
+        pageSize: size,
         current: page,
       }}
     />

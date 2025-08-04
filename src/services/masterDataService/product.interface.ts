@@ -49,6 +49,33 @@ export interface Product {
   width: number;
 }
 
+export interface ProductRequest {
+  page: number;
+  size: number;
+  category_ids?: string;
+  brand_ids?: number;
+  status?: string;
+  mapping_id?: string;
+  sort_by?: string;
+  order_by?: string;
+  skus?: number;
+  config_query?: string;
+  sku_or_barcode?: string;
+  keywords?: string;
+  barcodes?: string;
+  product_name?: number;
+  from_date?: number;
+  to_date?: number;
+  is_tester?: string;
+  type_ids?: number;
+  have_thumbnail?: number;
+  have360_view?: number;
+  have3D_model?: number;
+  have_supplementary_label?: number;
+  stackable?: number;
+  hangable?: number;
+}
+
 export interface ProductResponse {
   count: number;
   page: number;
