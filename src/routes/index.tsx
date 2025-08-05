@@ -1,19 +1,16 @@
-import React from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 // Layouts
 import AppLayout from "@/layouts/AppLayout";
 
 // Pages
-import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
 
 // Components
 import { ErrorBoundary } from "@/components";
 
 // Guards
-import AuthGuard from "@/guards/AuthGuard";
-import GuestGuard from "@/guards/GuestGuard";
+import { AuthGuard } from "@/guards";
 import Users from "@/pages/Users";
 import Settings from "@/pages/Settings";
 import ErrorPage from "@/pages/Errors";
@@ -24,27 +21,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import masterDataRoute from "@/pages/MasterData/route";
-
-// Error boundary wrapper for router
-const RouterErrorBoundary: React.FC = () => {
-  return (
-    <ErrorBoundary>
-      <div>Something went wrong</div>
-    </ErrorBoundary>
-  );
-};
+import authRoute from "@/pages/Auth/route";
 
 export const routeMenuItem: AppRouteMenuItem[] = [
-  {
-    path: "/login",
-    name: "Login",
-    hideInMenu: true,
-    element: (
-      <GuestGuard>
-        <Login />
-      </GuestGuard>
-    ),
-  },
+  ...authRoute, // auth route
   {
     path: "/",
     element: (
@@ -53,7 +33,11 @@ export const routeMenuItem: AppRouteMenuItem[] = [
       </AuthGuard>
     ),
     hideInMenu: true,
-    errorElement: <RouterErrorBoundary />,
+    errorElement: (
+      <ErrorBoundary>
+        <div>Something went wrong</div>
+      </ErrorBoundary>
+    ),
     children: [
       {
         index: true,

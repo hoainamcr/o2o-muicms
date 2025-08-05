@@ -6,7 +6,7 @@ interface GuestGuardProps {
   children: React.ReactNode;
 }
 
-const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
+export const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
   const { isAuthenticated } = useAuthStore();
   const location = useLocation();
 
@@ -18,5 +18,3 @@ const GuestGuard: React.FC<GuestGuardProps> = ({ children }) => {
 
   return <>{children}</>;
 };
-
-export default GuestGuard;

@@ -7,7 +7,7 @@ interface AuthGuardProps {
   children: React.ReactNode;
 }
 
-const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
+export const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
   const { isAuthenticated, isLoading, getCurrentUser } = useAuthStore();
   const location = useLocation();
 
@@ -29,5 +29,3 @@ const AuthGuard: React.FC<AuthGuardProps> = ({ children }) => {
 
   return <>{children}</>;
 };
-
-export default AuthGuard;
