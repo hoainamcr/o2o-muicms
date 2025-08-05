@@ -3,8 +3,9 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import { ProLayout } from "@ant-design/pro-components";
 import { useAuthStore } from "@/stores/auth.store";
 import { Dropdown } from "antd";
-import { LogoutOutlined } from "@ant-design/icons";
+import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import useGetMenus from "@/hooks/useGetMenus";
+import { USER_PATH } from "@/pages/UserProfile/route";
 
 const AppLayout: React.FC = () => {
   const { user, logout } = useAuthStore();
@@ -57,6 +58,15 @@ const AppLayout: React.FC = () => {
             <Dropdown
               menu={{
                 items: [
+                  {
+                    key: "profile",
+                    icon: <UserOutlined />,
+                    label: "Profile",
+                    onClick: () => navigate(`/${USER_PATH.PROFILE}`),
+                  },
+                  {
+                    type: "divider",
+                  },
                   {
                     key: "logout",
                     icon: <LogoutOutlined />,

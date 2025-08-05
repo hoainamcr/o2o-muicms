@@ -28,7 +28,7 @@ const Loading: React.FC<LoadingProps> = ({
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        height: "200px",
+        height: "100vh",
       }}
     >
       <Spin size={size} tip={tip} />

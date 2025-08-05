@@ -22,6 +22,7 @@ import {
 } from "@ant-design/icons";
 import masterDataRoute from "@/pages/MasterData/route";
 import authRoute from "@/pages/Auth/route";
+import userProfileRoute from "@/pages/UserProfile/route";
 
 export const routeMenuItem: AppRouteMenuItem[] = [
   ...authRoute, // auth route
@@ -49,6 +50,7 @@ export const routeMenuItem: AppRouteMenuItem[] = [
         element: <Dashboard />,
         icon: <DashboardOutlined />,
       },
+      userProfileRoute,
       masterDataRoute,
       {
         path: "users",
