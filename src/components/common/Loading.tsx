@@ -36,4 +36,4 @@ const Loading: React.FC<LoadingProps> = ({
   );
 };
 
-export default Loading;
+export { Loading };

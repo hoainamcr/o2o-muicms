@@ -2,14 +2,14 @@ import React from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 
 // Layouts
-import AppLayout from "@/components/layout/AppLayout";
+import AppLayout from "@/layouts/AppLayout";
 
 // Pages
 import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
 
 // Components
-import ErrorBoundary from "@/components/common/ErrorBoundary";
+import { ErrorBoundary } from "@/components";
 
 // Guards
 import AuthGuard from "@/guards/AuthGuard";

@@ -21,7 +21,7 @@ export { useApiQuery, useApiMutation, usePaginatedQuery } from "./hooks/useApi";
 // Components
 export { default as Loading } from "./components/common/Loading";
 export { default as ErrorBoundary } from "./components/common/ErrorBoundary";
-export { default as AppLayout } from "./components/layout/AppLayout";
+export { default as AppLayout } from "./layouts/AppLayout";
 
 // Guards
 export { default as AuthGuard } from "./guards/AuthGuard";
