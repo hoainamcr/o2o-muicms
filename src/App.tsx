@@ -5,6 +5,7 @@ import viVN from "antd/locale/vi_VN";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Loading, ErrorBoundary } from "@/components";
 import AppRouter from "./routes";
+import { themeConfig } from "./theme";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -19,7 +20,7 @@ const queryClient = new QueryClient({
 const App: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <ConfigProvider locale={viVN}>
+      <ConfigProvider locale={viVN} theme={themeConfig}>
         <ErrorBoundary>
           <Loading spinning={false}>
             <RouterProvider router={AppRouter} />

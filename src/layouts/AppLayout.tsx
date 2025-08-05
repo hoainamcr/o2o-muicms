@@ -6,6 +6,7 @@ import { Dropdown } from "antd";
 import { LogoutOutlined, UserOutlined } from "@ant-design/icons";
 import useGetMenus from "@/hooks/useGetMenus";
 import { USER_PATH } from "@/pages/UserProfile/route";
+import { LanguageSelect } from "./components";
 
 const AppLayout: React.FC = () => {
   const { user, logout } = useAuthStore();
@@ -27,6 +28,11 @@ const AppLayout: React.FC = () => {
       layout="mix"
       title="O2O System Management"
       logo="/logo.png"
+      actionsRender={(props) => {
+        if (props.isMobile) return [];
+        if (typeof window === "undefined") return [];
+        return [<LanguageSelect />];
+      }}
       menu={{
         request: async () => {
           return menus;
